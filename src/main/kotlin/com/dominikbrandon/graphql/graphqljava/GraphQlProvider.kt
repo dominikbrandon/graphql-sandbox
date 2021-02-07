@@ -1,5 +1,7 @@
-package com.dominikbrandon.graphql
+package com.dominikbrandon.graphql.graphqljava
 
+import com.dominikbrandon.graphql.Book
+import com.dominikbrandon.graphql.BooksRepository
 import com.fasterxml.jackson.databind.ObjectMapper
 import graphql.GraphQL
 import graphql.schema.DataFetchingEnvironment
@@ -10,13 +12,15 @@ import graphql.schema.idl.SchemaParser
 import graphql.schema.idl.TypeRuntimeWiring.newTypeWiring
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Profile
 import org.springframework.util.ResourceUtils
 
 @Configuration
-open class GraphQlProvider(private val booksRepository: BooksRepository, private val objectMapper: ObjectMapper) {
+@Profile("graphql-java")
+class GraphQlProvider(private val booksRepository: BooksRepository, private val objectMapper: ObjectMapper) {
 
     @Bean
-    open fun graphQl(): GraphQL {
+    fun graphQl(): GraphQL {
         val graphQlSchema = buildSchema()
         return GraphQL.newGraphQL(graphQlSchema).build()
     }
@@ -44,6 +48,5 @@ open class GraphQlProvider(private val booksRepository: BooksRepository, private
         val rawBook = env.getArgument<Map<String, Any>>("book")
         val book = objectMapper.convertValue(rawBook, Book::class.java)
         booksRepository.add(book)
-        null
     }
 }

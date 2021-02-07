@@ -1,0 +1,23 @@
+### get all
+POST http://localhost:8080/graphql
+Content-Type: application/graphql
+
+{
+  allBooks {
+    id
+    title
+  }
+}
+
+### create book
+POST http://localhost:8080/graphql
+Content-Type: application/graphql
+
+mutation {
+  createBook(book: {
+    title: "ksiazka{{$randomInt}}"
+  }) {
+    id
+    title
+  }
+}

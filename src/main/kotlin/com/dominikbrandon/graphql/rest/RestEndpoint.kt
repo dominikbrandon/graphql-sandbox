@@ -1,5 +1,7 @@
-package com.dominikbrandon.graphql
+package com.dominikbrandon.graphql.rest
 
+import com.dominikbrandon.graphql.Book
+import com.dominikbrandon.graphql.BooksRepository
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

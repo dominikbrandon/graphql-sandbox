@@ -1,4 +1,4 @@
-package com.dominikbrandon.graphql
+package com.dominikbrandon.graphql.mongo
 
 import com.mongodb.ConnectionString
 import com.mongodb.MongoClientSettings
@@ -11,13 +11,13 @@ import org.testcontainers.containers.MongoDBContainer
 import org.testcontainers.utility.DockerImageName
 
 @Configuration
-open class MongoRunner {
+class MongoRunner {
     private companion object {
         val logger: Logger = LoggerFactory.getLogger(MongoRunner::class.java)
     }
 
     @Bean
-    open fun customMongoPropertiesCustomizer(): MongoClientSettingsBuilderCustomizer {
+    fun customMongoPropertiesCustomizer(): MongoClientSettingsBuilderCustomizer {
         val mongoUrl = run()
         return MongoUrlOverwriter(mongoUrl)
     }
