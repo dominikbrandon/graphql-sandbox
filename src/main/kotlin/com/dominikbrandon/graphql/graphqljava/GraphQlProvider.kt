@@ -10,13 +10,16 @@ import graphql.schema.idl.RuntimeWiring
 import graphql.schema.idl.SchemaGenerator
 import graphql.schema.idl.SchemaParser
 import graphql.schema.idl.TypeRuntimeWiring.newTypeWiring
+import graphql.spring.web.servlet.GraphQLEndpointConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Profile
 import org.springframework.util.ResourceUtils
 
 @Configuration
 @Profile("graphql-java")
+@Import(GraphQLEndpointConfiguration::class)
 class GraphQlProvider(private val booksRepository: BooksRepository, private val objectMapper: ObjectMapper) {
 
     @Bean
@@ -26,7 +29,7 @@ class GraphQlProvider(private val booksRepository: BooksRepository, private val 
     }
 
     private fun buildSchema(): GraphQLSchema {
-        val schemaFile = ResourceUtils.getFile("classpath:schema.graphqls")
+        val schemaFile = ResourceUtils.getFile("classpath:schema/schema.graphqls")
         val typeRegistry = SchemaParser().parse(schemaFile)
         val runtimeWiring = buildWiring()
         return SchemaGenerator().makeExecutableSchema(typeRegistry, runtimeWiring)
