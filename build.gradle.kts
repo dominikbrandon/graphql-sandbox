@@ -29,7 +29,7 @@ dependencies {
     implementation("com.graphql-java:graphql-java:16.2")
     implementation("com.graphql-java:graphql-java-spring-boot-starter-webmvc:2.0")
 
-    implementation("com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter:3.2.0")
+    implementation("com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter:3.9.3")
 }
 
 tasks.withType<KotlinCompile> {
